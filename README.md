@@ -105,7 +105,7 @@ POST /orders # créer une nouvelle commande à partir du panier
 
 ## Étapes pédagogiques
 
-1. V0 Monolithe simple (ce projet)
+1. V0 Monolithe simple (cette branche)
 
    - Branche `main`
      - Tout en mémoire, une seule app
