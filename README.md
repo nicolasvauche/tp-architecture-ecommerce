@@ -35,11 +35,6 @@ npm test
 
 ```bash
 architecture-ecommerce/
-├─ .gitignore                  # Fichiers/dossiers ignorés par Git (node_modules, coverage, etc.)
-├─ README.md                   # Documentation du projet (instructions, endpoints, etc.)
-├─ package.lock.json           # Verrouillage des dépendances (auto-généré par npm)
-├─ package.json                # Dépendances, scripts npm (dev, test, coverage, etc.)
-│
 ├─ .github/                    # Configurations spécifiques à GitHub
 │  └─ workflows/
 │     └─ ci.yaml               # Github Actions CI
@@ -49,12 +44,17 @@ architecture-ecommerce/
 │  ├─ products.fetch.int.test  # Tests d'intégration : Products sans supertest
 │  └─ products.test.js         # Tests fonctionnels : Products
 │
-└─ src/                        # Code source de l’application monolithique
-   ├─ index.js                 # Point d’entrée
-   ├─ products.js              # Routes produits
-   ├─ cart.js                  # Routes panier
-   ├─ orders.js                # Routes commandes
-   └─ state.js                 # State global
+├─ src/                        # Code source de l’application monolithique
+│  ├─ index.js                 # Point d’entrée
+│  ├─ products.js              # Routes produits
+│  ├─ cart.js                  # Routes panier
+│  ├─ orders.js                # Routes commandes
+│  └─ state.js                 # State global
+│
+├─ .gitignore                  # Fichiers/dossiers ignorés par Git (node_modules, coverage, etc.)
+├─ README.md                   # Documentation du projet (instructions, endpoints, etc.)
+├─ package.lock.json           # Verrouillage des dépendances (auto-généré par npm)
+└─ package.json                # Dépendances, scripts npm (dev, test, coverage, etc.)
 ```
 
 ---
