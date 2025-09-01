@@ -1,33 +1,26 @@
-# Monolithe E-commerce (Node.js + Express)
+# E-commerce N-Tier (Node.js + Express)
 
-Un **projet fil rouge** pour comprendre les bases des architectures applicatives :
+Cette branche illustre l’évolution du projet fil rouge vers une architecture en couches (n-tiers).  
+L’objectif est de séparer clairement les responsabilités de l’application afin de mieux organiser le code et de préparer le terrain pour des architectures plus avancées.
 
-- On commence par un **monolithe simple** (tout dans une seule app).
-- Puis on le fera évoluer vers des architectures **n-tiers**, **DDD** et **microservices**.
+---
+
+## Objectifs pédagogiques
+
+- Comprendre la logique d’une architecture n-tiers classique.
+- Séparer la présentation (routes, controllers), la logique métier (services) et l’accès aux données (repositories).
+- Mettre en évidence la différence entre un monolithe simple et une architecture organisée en couches.
+- Préparer la transition vers des modèles plus évolués (Clean, Hexagonal, Microservices).
 
 ---
 
 ## Lancer le projet
 
-### 1. Installer les dépendances
+1. Installer les dépendances avec npm.
+2. Lancer le serveur en mode développement.
+3. Exécuter les tests automatisés.
 
-```bash
-npm install
-```
-
-### 2. Lancer le serveur
-
-```bash
-npm run dev
-```
-
-Le serveur démarre sur http://localhost:3000.
-
-### 3. Exécuter les tests
-
-```bash
-npm test
-```
+Le serveur démarre par défaut sur le port 3000.
 
 ---
 
@@ -35,97 +28,68 @@ npm test
 
 ```bash
 tp-architecture-ecommerce/
-├─ .github/                    # Configurations spécifiques à GitHub
-│  └─ workflows/
-│     └─ ci.yaml               # Github Actions CI
+├─ __tests__/                             # unit/integration/e2e
+│  └─ products.test.js
 │
-├─ __tests__/                  # Dossier des tests automatisés
-│  ├─ cart_orders.test.js      # Tests fonctionnels et E2E : Cart + Orders
-│  ├─ products.fetch.int.test  # Tests d'intégration : Products sans supertest
-│  └─ products.test.js         # Tests fonctionnels : Products
+├─ src/
+│  ├─ presentation/                       # TIER 1 — HTTP seulement
+│  │  └─ http/
+│  │     ├─ index.js                      # crée l'app Express
+│  │     ├─ routes/                       # routes ⇢ controllers
+│  │     │  ├─ products.routes.js
+│  │     │  ├─ cart.routes.js
+│  │     │  └─ orders.routes.js
+│  │     └─ controllers/                  # controllers ⇢ services (Business)
+│  │        ├─ ProductsController.js
+│  │        ├─ CartController.js
+│  │        └─ OrdersController.js
+│  │
+│  ├─ business/                           # TIER 2 — logique métier (pas d'I/O)
+│  │  └─ services/                        # services ⇢ repositories (Data)
+│  │     ├─ ListProductsService.js
+│  │     ├─ AddToCartService.js
+│  │     ├─ CheckoutOrderService.js
+│  │     └─ GetOrderDetailService.js
+│  │
+│  ├─ data/                               # TIER 3 — accès données (concrets)
+│  │  ├─ repositories/
+│  │  │  ├─ ProductRepository.js
+│  │  │  ├─ CartRepository.js
+│  │  │  └─ OrderRepository.js
+│  │  └─ memory/                          # impl in-memory simple
+│  │     ├─ state.js
+│  │     ├─ ProductRepositoryInMemory.js
+│  │     ├─ CartRepositoryInMemory.js
+│  │     └─ OrderRepositoryInMemory.js
+│  │
+│  └─ index.js                            # point d’entrée (lance le serveur)
 │
-├─ src/                        # Code source de l’application monolithique
-│  ├─ index.js                 # Point d’entrée
-│  ├─ products.js              # Routes produits
-│  ├─ cart.js                  # Routes panier
-│  ├─ orders.js                # Routes commandes
-│  └─ state.js                 # State global
-│
-├─ .gitignore                  # Fichiers/dossiers ignorés par Git (node_modules, coverage, etc.)
-├─ README.md                   # Documentation du projet (instructions, endpoints, etc.)
-├─ package.lock.json           # Verrouillage des dépendances (auto-généré par npm)
-└─ package.json                # Dépendances, scripts npm (dev, test, coverage, etc.)
+├─ .gitignore
+├─ README.md
+├─ package-lock.json
+└─ package.json
 ```
-
----
-
-## Endpoints disponibles
-
-### Produits
-
-```bash
-GET /products # liste des produits disponibles
-```
-
-### Panier
-
-```bash
-GET /cart # voir le contenu du panier
-POST /cart `{ "productId": int, "quantity": int }` # ajouter un produit
-DELETE /cart # vider le panier
-```
-
-### Commandes
-
-```bash
-GET /orders # voir toutes les commandes passées
-POST /orders # créer une nouvelle commande à partir du panier
-```
-
----
-
-## Tests automatisés
-
-### Intégration (sans supertest)
-
-- GET `/products` retourne le seed trié par id
-
-### Fonctionnels (avec supertest)
-
-- GET `/products` retourne le seed trié par id
-- POST `/cart` refuse un produit non proposé
-- DELETE `/cart` vide le panier
-
-### End To End (E2E)
-
-- POST `/cart` ajoute un produit existant puis GET `/cart` reflète l'ajout (fusion des quantités)
-- POST `/orders` crée une commande à partir du panier, GET `/orders` reflète l'ajout, puis GET `/cart` vérifie que le panier est vidé
 
 ---
 
 ## Étapes pédagogiques
 
-1. V0 Monolithe simple (ce projet)
+1. V0 Monolithe simple
 
-   - Branche `main`
-     - Tout en mémoire, une seule app
+   - Tout est regroupé dans une seule application.
 
-2. V1 Architecture en couches (n-tiers)
+2. V1 Architecture N-Tier (cette branche)
 
-   - Branche `n-tier`
-     - Séparation Routes / Services / Repositories
-     - Persistance SQLite/Postgres avec Prisma ou Sequelize
+   - Séparation claire entre présentation, logique métier et persistance.
+   - Mise en place de routes, controllers, services et repositories.
 
-3. V2 Domain-Driven Design (clean)
+3. V2 Domain-Driven Design (Clean)
 
-   - Branche `clean`
-     - Clean architecture (infrastructure & adapters)
+   - Introduction d’interfaces et inversion des dépendances.
 
-4. V3 Domain-Driven Design (hexagonale)
+4. V3 Architecture Hexagonale
 
-   - Branche `hexagonal`
-     - Architecture hexagonale (port & adapters)
+   - Ports & Adapters, plus grande indépendance vis-à-vis des frameworks.
 
-5. V3 Microservices & CQRS
-   - Branche `microservices`
-     - Découper en services (catalogue, panier, commande)
+5. V4 Microservices & CQRS
+   - Découpage en services indépendants (catalogue, panier, commandes).
