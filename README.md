@@ -37,6 +37,7 @@ architecture-ecommerce/
    ├─ products.js     # Routes produits
    ├─ cart.js         # Routes panier
    └─ orders.js       # Routes commandes
+   └─ state.js        # State global
 ```
 
 ---
