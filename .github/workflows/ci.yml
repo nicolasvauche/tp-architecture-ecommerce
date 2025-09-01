@@ -31,14 +31,3 @@ jobs:
 
       - name: Run tests (verbose)
         run: npm test -- --verbose
-
-      - name: Coverage report
-        run: npm run coverage || npx jest --coverage --runInBand
-
-      - name: Upload coverage artifact
-        if: matrix.node-version == '20'
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-lcov
-          path: coverage
-          if-no-files-found: warn
