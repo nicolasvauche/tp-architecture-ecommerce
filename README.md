@@ -55,6 +55,7 @@ GET /products # liste des produits disponibles
 ```bash
 GET /cart # voir le contenu du panier
 POST /cart # ajouter un produit
+DELETE /cart # vider le panier
 ```
 
 ### Commandes
@@ -70,19 +71,20 @@ POST /orders # créer une nouvelle commande à partir du panier
 
 1. V0 Monolithe simple (ce projet)
 
-   - Tout en mémoire, une seule app.
+   - Tout en mémoire, une seule app
 
 2. V1 Monolithe avec base de données
 
-   - Persistance SQLite/Postgres avec Prisma ou Sequelize.
+   - Persistance SQLite/Postgres avec Prisma ou Sequelize
 
 3. V2 Architecture en couches (n-tiers)
 
-   - Séparation Routes / Services / Repositories.
+   - Séparation Routes / Services / Repositories
 
 4. V3 Domain-Driven Design (DDD)
 
-   - Bounded contexts, entités, value objects, use-cases.
+   - Clean architecture (infrastructure & adapters)
+   - Architecture hexagonale (port & adapters)
 
 5. V4 Microservices & CQRS
-   - Découper en services (catalogue, panier, commande, paiement).
+   - Découper en services (catalogue, panier, commande)
