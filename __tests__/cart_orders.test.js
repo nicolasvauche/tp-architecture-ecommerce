@@ -52,7 +52,7 @@ test("[E2E] POST /cart ajoute un produit existant puis GET /cart reflète l'ajou
   expect(res.body).toEqual([{ productId: 1, quantity: 5 }]);
 });
 
-test("[E2E] POST /orders crée une commande à partir du panier", async () => {
+test("[E2E] POST /orders crée une commande à partir du panier, GET /orders reflète l'ajout, puis GET /cart vérifie que le panier est vidé", async () => {
   // préparer un panier
   await request(app).post("/cart").send({ productId: 2, quantity: 1 });
 

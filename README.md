@@ -84,6 +84,25 @@ POST /orders # créer une nouvelle commande à partir du panier
 
 ---
 
+## Tests automatisés
+
+### Intégration (sans supertest)
+
+- GET `/products` retourne le seed trié par id
+
+### Fonctionnels (avec supertest)
+
+- GET `/products` retourne le seed trié par id
+- POST `/cart` refuse un produit non proposé
+- DELETE `/cart` vide le panier
+
+### End To End (E2E)
+
+- POST `/cart` ajoute un produit existant puis GET `/cart` reflète l'ajout (fusion des quantités)
+- POST `/orders` crée une commande à partir du panier, GET `/orders` reflète l'ajout, puis GET `/cart` vérifie que le panier est vidé
+
+---
+
 ## Étapes pédagogiques
 
 1. V0 Monolithe simple (ce projet)
