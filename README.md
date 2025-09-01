@@ -15,8 +15,6 @@ Un **projet fil rouge** pour comprendre les bases des architectures applicatives
 npm install
 ```
 
----
-
 ### 2. Lancer le serveur
 
 ```bash
