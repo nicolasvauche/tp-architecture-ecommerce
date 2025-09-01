@@ -4,22 +4,21 @@ const cartRouter = require("./cart");
 const ordersRouter = require("./orders");
 
 const app = express();
-
-// Middleware pour parser le JSON des requêtes
 app.use(express.json());
 
-// Routes principales
 app.use("/products", productsRouter);
 app.use("/cart", cartRouter);
 app.use("/orders", ordersRouter);
 
-// Route de test
-app.get("/", (req, res) => {
-  res.send("Bienvenue sur l’API e-commerce monolithique 🚀");
-});
+app.get("/", (_req, res) =>
+  res.send("Bienvenue sur l’API e-commerce monolithique 🚀")
+);
 
-// Lancement du serveur
-const PORT = 3000;
-app.listen(PORT, () => {
-  console.log(`Serveur e-commerce en ligne sur http://localhost:${PORT}`);
-});
+// export pour Supertest
+module.exports = app;
+
+// écoute uniquement si lancé directement: `node src/index.js`
+if (require.main === module) {
+  const PORT = 3000;
+  app.listen(PORT, () => console.log(`Server http://localhost:${PORT}`));
+}
