@@ -34,7 +34,7 @@ npm test
 ## Arborescence
 
 ```bash
-architecture-ecommerce/
+tp-architecture-ecommerce/
 ├─ .github/                    # Configurations spécifiques à GitHub
 │  └─ workflows/
 │     └─ ci.yaml               # Github Actions CI
