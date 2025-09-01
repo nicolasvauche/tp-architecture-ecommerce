@@ -25,6 +25,12 @@ npm run dev
 
 Le serveur démarre sur http://localhost:3000.
 
+### 3. Exécuter les tests
+
+```bash
+npm test
+```
+
 ---
 
 ## Arborescence
