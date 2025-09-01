@@ -36,7 +36,7 @@ architecture-ecommerce/
    ├─ index.js        # Point d’entrée
    ├─ products.js     # Routes produits
    ├─ cart.js         # Routes panier
-   └─ orders.js       # Routes commandes
+   ├─ orders.js       # Routes commandes
    └─ state.js        # State global
 ```
 
