@@ -45,9 +45,9 @@ architecture-ecommerce/
 │     └─ ci.yaml               # Github Actions CI
 │
 ├─ __tests__/                  # Dossier des tests automatisés
-│  ├─ cart_orders.test.js      # Tests Cart + Orders
-│  ├─ products.fetch.int.test  # Tests Cart + Orders
-│  └─ products.test.js         # Tests Products
+│  ├─ cart_orders.test.js      # Tests fonctionnels et E2E : Cart + Orders
+│  ├─ products.fetch.int.test  # Tests d'intégration : Products sans supertest
+│  └─ products.test.js         # Tests fonctionnels : Products
 │
 └─ src/                        # Code source de l’application monolithique
    ├─ index.js                 # Point d’entrée
