@@ -39,7 +39,10 @@ architecture-ecommerce/
 └─ __tests__/
    ├─ cart_orders.test.js      # Tests Cart + Orders
    ├─ products.fetch.int.test  # Tests Cart + Orders
-   ├─ products.test.js         # Tests Products
+   └─ products.test.js         # Tests Products
+└─ .github/
+   └─ workflows/
+      └─ ci.yaml               # Github Actions CI
 └─ src/
    ├─ index.js                 # Point d’entrée
    ├─ products.js              # Routes produits
