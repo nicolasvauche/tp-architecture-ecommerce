@@ -35,15 +35,21 @@ npm test
 
 ```bash
 architecture-ecommerce/
-├─ package.json
-└─ .github/
-   └─ workflows/
-      └─ ci.yaml               # Github Actions CI
-└─ __tests__/
-   ├─ cart_orders.test.js      # Tests Cart + Orders
-   ├─ products.fetch.int.test  # Tests Cart + Orders
-   └─ products.test.js         # Tests Products
-└─ src/
+├─ .gitignore                  # Fichiers/dossiers ignorés par Git (node_modules, coverage, etc.)
+├─ README.md                   # Documentation du projet (instructions, endpoints, etc.)
+├─ package.lock.json           # Verrouillage des dépendances (auto-généré par npm)
+├─ package.json                # Dépendances, scripts npm (dev, test, coverage, etc.)
+│
+├─ .github/                    # Configurations spécifiques à GitHub
+│  └─ workflows/
+│     └─ ci.yaml               # Github Actions CI
+│
+├─ __tests__/                  # Dossier des tests automatisés
+│  ├─ cart_orders.test.js      # Tests Cart + Orders
+│  ├─ products.fetch.int.test  # Tests Cart + Orders
+│  └─ products.test.js         # Tests Products
+│
+└─ src/                        # Code source de l’application monolithique
    ├─ index.js                 # Point d’entrée
    ├─ products.js              # Routes produits
    ├─ cart.js                  # Routes panier
