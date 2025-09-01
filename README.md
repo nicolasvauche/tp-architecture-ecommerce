@@ -36,12 +36,15 @@ npm test
 ```bash
 architecture-ecommerce/
 ├─ package.json
+└─ __tests__/
+   ├─ cart_orders.test.js  # Tests Cart + Orders
+   ├─ products.test.js     # Tests Products
 └─ src/
-   ├─ index.js        # Point d’entrée
-   ├─ products.js     # Routes produits
-   ├─ cart.js         # Routes panier
-   ├─ orders.js       # Routes commandes
-   └─ state.js        # State global
+   ├─ index.js             # Point d’entrée
+   ├─ products.js          # Routes produits
+   ├─ cart.js              # Routes panier
+   ├─ orders.js            # Routes commandes
+   └─ state.js             # State global
 ```
 
 ---
