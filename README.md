@@ -30,7 +30,7 @@ Le serveur démarre sur http://localhost:3000.
 ## Arborescence
 
 ```bash
-ecommerce-monolith/
+architecture-ecommerce/
 ├─ package.json
 └─ src/
    ├─ index.js        # Point d’entrée
