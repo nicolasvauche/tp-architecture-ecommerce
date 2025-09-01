@@ -4,7 +4,7 @@ const state = require("../src/state");
 
 beforeEach(() => state.reset());
 
-test("GET /products retourne le seed trié par id", async () => {
+test("[Fonctionnel] GET /products retourne le seed trié par id", async () => {
   const res = await request(app).get("/products");
   expect(res.status).toBe(200);
   expect(res.body).toEqual([
