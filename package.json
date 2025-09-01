@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",
-    "test": "jest --runInBand --verbose",
+    "test": "jest --runInBand --verbose --coverage",
     "test:watch": "jest --watch --verbose"
   },
   "keywords": [],

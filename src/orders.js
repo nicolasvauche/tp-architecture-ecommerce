@@ -25,7 +25,7 @@ router.post("/", (req, res) => {
 
   state.orders.push(order);
   state.nextOrderId += 1;
-  // state.cart = [];
+  state.cart = [];
 
   res.json(order);
 });

@@ -29,11 +29,34 @@ test("POST /cart refuse un produit non proposé", async () => {
   expect(res.body).toEqual({ error: "Produit non proposé" });
 });
 
+test("DELETE /cart vide le panier", async () => {
+  // préparer un panier
+  await request(app)
+    .post("/cart")
+    .send({ productId: 2, quantity: 1 })
+    .expect(200);
+
+  // vérifier qu'il y a bien 1 item
+  let res = await request(app).get("/cart");
+  expect(res.status).toBe(200);
+  expect(res.body).toEqual([{ productId: 2, quantity: 1 }]);
+
+  // vider le panier
+  res = await request(app).delete("/cart");
+  expect(res.status).toBe(200);
+  expect(res.body).toEqual({ message: "Panier vidé" });
+
+  // vérifier que c'est bien vide
+  res = await request(app).get("/cart");
+  expect(res.status).toBe(200);
+  expect(res.body).toEqual([]);
+});
+
 test("POST /orders crée une commande à partir du panier", async () => {
   // préparer un panier
   await request(app).post("/cart").send({ productId: 2, quantity: 1 });
 
-  const res = await request(app).post("/orders");
+  let res = await request(app).post("/orders");
   expect(res.status).toBe(200);
   expect(res.body).toMatchObject({
     id: 1,
@@ -44,4 +67,9 @@ test("POST /orders crée une commande à partir du panier", async () => {
   // la commande est listée
   const list = await request(app).get("/orders");
   expect(list.body.length).toBe(1);
+
+  // le panier est vidé
+  res = await request(app).get("/cart");
+  expect(res.status).toBe(200);
+  expect(res.body).toEqual([]);
 });
