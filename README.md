@@ -28,46 +28,72 @@ Le serveur démarre par défaut sur le port 3000.
 
 ```bash
 tp-architecture-ecommerce/
-├─ __tests__/                             # unit/integration/e2e
-│  └─ products.test.js
+├─ __tests__/                                # Tous les tests Jest
+│  ├─ unit/                                  # Tests unitaires (services purs)
+│  │  ├─ listProducts.unit.test.js           # Test unitaire : lister les Produits
+│  │  ├─ cart.services.unit.test.js          # Tests unitaires : services du Panier
+│  │  └─ orders.services.unit.test.js        # Tests unitaires : services Commandes
+│  │
+│  ├─ integration/                           # Tests d’intégration (repositories in-memory)
+│  │  ├─ repositories.int.test.js            # Produits + Panier + Commandes (repos)
+│  │  └─ orders.repositories.int.test.js     # Cas intégration OrderRepository
+│  │
+│  ├─ functional/                            # Tests fonctionnels (routes HTTP via supertest)
+│  │  ├─ products.functional.test.js         # Vérifie GET /products
+│  │  ├─ cart.functional.test.js             # Vérifie POST/DELETE /cart
+│  │  └─ orders.functional.test.js           # Vérifie GET/POST /orders
+│  │
+│  ├─ e2e/                                   # Tests bout-à-bout (parcours complet)
+│  │  ├─ cart_orders.e2e.test.js             # Ajout panier → checkout → commandes
+│  │  └─ invalid_product.e2e.test.js         # Produit invalide refusé
+│  │
+│  └─ helpers/                               # Helpers de test (pas exécutés seuls)
+│     └─ resetDb.js                          # Réinitialise le state in-memory entre tests
 │
 ├─ src/
-│  ├─ presentation/                       # TIER 1 — HTTP seulement
+│  ├─ presentation/                          # TIER 1 — Interface (HTTP uniquement)
 │  │  └─ http/
-│  │     ├─ index.js                      # crée l'app Express
-│  │     ├─ routes/                       # routes ⇢ controllers
+│  │     ├─ index.js                         # Crée l'app Express et monte les routes
+│  │     ├─ routes/                          # Routes ⇢ controllers
 │  │     │  ├─ products.routes.js
 │  │     │  ├─ cart.routes.js
 │  │     │  └─ orders.routes.js
-│  │     └─ controllers/                  # controllers ⇢ services (Business)
-│  │        ├─ ProductsController.js
-│  │        ├─ CartController.js
-│  │        └─ OrdersController.js
+│  │     ├─ controllers/                     # Controllers ⇢ services (Business)
+│  │     │  ├─ ProductsController.js
+│  │     │  ├─ CartController.js
+│  │     │  └─ OrdersController.js
+│  │     └─ middlewares/                     # Middlewares Express
+│  │        └─ errorMiddleware.js            # Traduit erreurs métier en statuts HTTP
 │  │
-│  ├─ business/                           # TIER 2 — logique métier (pas d'I/O)
-│  │  └─ services/                        # services ⇢ repositories (Data)
+│  ├─ business/                              # TIER 2 — Logique métier (pas d'I/O)
+│  │  └─ services/                           # Services ⇢ repositories (Data)
 │  │     ├─ ListProductsService.js
 │  │     ├─ AddToCartService.js
+│  │     ├─ RemoveFromCartService.js
+│  │     ├─ ClearCartService.js
 │  │     ├─ CheckoutOrderService.js
+│  │     ├─ ListOrdersService.js
 │  │     └─ GetOrderDetailService.js
 │  │
-│  ├─ data/                               # TIER 3 — accès données (concrets)
-│  │  ├─ repositories/
+│  ├─ data/                                  # TIER 3 — Accès données (impl concrètes)
+│  │  ├─ repositories/                       # Points d’accès (fabriques)
 │  │  │  ├─ ProductRepository.js
 │  │  │  ├─ CartRepository.js
 │  │  │  └─ OrderRepository.js
-│  │  └─ memory/                          # impl in-memory simple
-│  │     ├─ state.js
+│  │  └─ memory/                             # Implémentation in-memory simple
+│  │     ├─ state.js                         # Faux “DB” : produits, panier, commandes
 │  │     ├─ ProductRepositoryInMemory.js
 │  │     ├─ CartRepositoryInMemory.js
 │  │     └─ OrderRepositoryInMemory.js
 │  │
-│  └─ index.js                            # point d’entrée (lance le serveur)
+│  └─ index.js                               # Point d’entrée (lance le serveur HTTP)
 │
-├─ .gitignore
-├─ README.md
+├─ .gitignore                                # Ignore node_modules, coverage, etc.
+├─ babel.config.cjs                          # Configuration de Babel
+├─ jest.config.cjs                           # Configuration de Jest
+├─ README.md                                 # Doc projet (branche n-tier)
 ├─ package-lock.json
-└─ package.json
+└─ package.json                              # Dépendances, scripts npm, config Jest
 ```
 
 ---
