@@ -61,7 +61,7 @@ GET /products # liste des produits disponibles
 
 ```bash
 GET /cart # voir le contenu du panier
-POST /cart # ajouter un produit
+POST /cart `{ "productId": int, "quantity": int }` # ajouter un produit
 DELETE /cart # vider le panier
 ```
 
