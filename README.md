@@ -110,23 +110,22 @@ POST /orders # créer une nouvelle commande à partir du panier
    - Branche `main`
      - Tout en mémoire, une seule app
 
-2. V1 Monolithe avec base de données
-
-   - Branche `monolith-bdd`
-     - Persistance SQLite/Postgres avec Prisma ou Sequelize
-
-3. V2 Architecture en couches (n-tiers)
+2. V1 Architecture en couches (n-tiers)
 
    - Branche `n-tier`
      - Séparation Routes / Services / Repositories
+     - Persistance SQLite/Postgres avec Prisma ou Sequelize
 
-4. V3 Domain-Driven Design (DDD)
+3. V2 Domain-Driven Design (clean)
 
    - Branche `clean`
      - Clean architecture (infrastructure & adapters)
+
+4. V3 Domain-Driven Design (hexagonale)
+
    - Branche `hexagonal`
      - Architecture hexagonale (port & adapters)
 
-5. V4 Microservices & CQRS
+5. V3 Microservices & CQRS
    - Branche `microservices`
      - Découper en services (catalogue, panier, commande)
