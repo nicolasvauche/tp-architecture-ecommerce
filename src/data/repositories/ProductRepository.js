@@ -1,2 +1,10 @@
 import { ProductRepositoryInMemory } from "../memory/ProductRepositoryInMemory.js";
-export const ProductRepository = () => ProductRepositoryInMemory();
+import { ProductRepositorySqlite } from "../sqlite/ProductRepositorySqlite.js";
+
+export function ProductRepository() {
+  const driver = (process.env.DATA_DRIVER || "memory").toLowerCase();
+  if (driver === "sqlite") {
+    return new ProductRepositorySqlite();
+  }
+  return new ProductRepositoryInMemory();
+}

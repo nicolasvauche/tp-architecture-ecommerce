@@ -46,10 +46,13 @@ tp-architecture-ecommerce/
 │  │  └─ orders.repositories.int.test.js     # Cas intégration OrderRepository
 │  │
 │  └─ unit/                                  # Tests unitaires (services purs)
-│  │  ├─ listProducts.unit.test.js           # Test unitaire : lister les Produits
-│  │  ├─ cart.services.unit.test.js          # Tests unitaires : services du Panier
-│  │  └─ orders.services.unit.test.js        # Tests unitaires : services Commandes
-│  │
+│     ├─ listProducts.unit.test.js           # Test unitaire : lister les Produits
+│     ├─ cart.services.unit.test.js          # Tests unitaires : services du Panier
+│     └─ orders.services.unit.test.js        # Tests unitaires : services Commandes
+│
+├─ scripts/                                   # Petits utilitaires CLI
+│  └─ db-reset-sqlite.js                      # Exécute schema.sql + seed.sql
+│
 ├─ src/
 │  ├─ business/                              # TIER 2 — Logique métier (pas d'I/O)
 │  │  └─ services/                           # Services ⇢ repositories (Data)
@@ -67,33 +70,50 @@ tp-architecture-ecommerce/
 │  │  │  ├─ ProductRepositoryInMemory.js
 │  │  │  ├─ CartRepositoryInMemory.js
 │  │  │  └─ OrderRepositoryInMemory.js
-│  │  └─ repositories/                       # Points d’accès (fabriques)
-│  │     ├─ ProductRepository.js
-│  │     ├─ CartRepository.js
-│  │     └─ OrderRepository.js
+│  │  │
+│  │  ├─ repositories/                        # Points d’accès (fabriques)
+│  │  │  ├─ ProductRepository.js
+│  │  │  ├─ CartRepository.js
+│  │  │  └─ OrderRepository.js
+│  │  │
+│  │  └─ sqlite/                              # Implémentation SQLite
+│  │     ├─ db.js                             # Connexion better-sqlite3 + helpers
+│  │     ├─ schema.sql                        # CREATE TABLE products, cart_items, orders, order_items…
+│  │     ├─ seed.sql                          # Données d’amorçage (quelques produits)
+│  │     ├─ ProductRepositorySqlite.js
+│  │     ├─ CartRepositorySqlite.js
+│  │     └─ OrderRepositorySqlite.js
 │  │
-│  ├─ presentation/                          # TIER 1 — Interface (HTTP uniquement)
+│  ├─ presentation/                           # TIER 1 — Interface (HTTP uniquement)
 │  │  └─ http/
-│  │     ├─ controllers/                     # Controllers ⇢ services (Business)
+│  │     ├─ controllers/                      # Controllers ⇢ services (Business)
 │  │     │  ├─ ProductsController.js
 │  │     │  ├─ CartController.js
 │  │     │  └─ OrdersController.js
-│  │     ├─ middlewares/                     # Middlewares Express
-│  │     │  └─ errorMiddleware.js            # Traduit erreurs métier en statuts HTTP
-│  │     ├─ routes/                          # Routes ⇢ controllers
+│  │     │
+│  │     ├─ middlewares/                      # Middlewares Express
+│  │     │  └─ errorMiddleware.js             # Traduit erreurs métier en statuts HTTP
+│  │     │
+│  │     ├─ routes/                           # Routes ⇢ controllers
 │  │     │  ├─ products.routes.js
 │  │     │  ├─ cart.routes.js
 │  │     │  └─ orders.routes.js
-│  │     └─ index.js                         # Crée l'app Express et monte les routes
+│  │     │
+│  │     └─ index.js                          # Crée l'app Express et monte les routes
 │  │
-│  └─ index.js                               # Point d’entrée (lance le serveur HTTP)
+│  └─ index.js                                # Point d’entrée (lance le serveur HTTP)
 │
-├─ .gitignore                                # Ignore node_modules, coverage, etc.
-├─ babel.config.cjs                          # Configuration de Babel
-├─ jest.config.cjs                           # Configuration de Jest
-├─ README.md                                 # Doc projet (branche n-tier)
+├─ var/                                       # Dossier runtime sqlite (git-ignoré)
+│  └─ .gitkeep
+│
+├─ .env.example                               # À DUPLIQUER EN .env
+├─ .env.test.example                          # À DUPLIQUER EN .env.test
+├─ .gitignore                                 # Ignore node_modules, coverage, etc.
+├─ babel.config.cjs                           # Configuration de Babel
+├─ jest.config.cjs                            # Configuration de Jest
+├─ README.md                                  # Doc projet (branche n-tier)
 ├─ package-lock.json
-└─ package.json                              # Dépendances, scripts npm, config Jest
+└─ package.json                               # Dépendances, scripts npm, config Jest
 ```
 
 ---

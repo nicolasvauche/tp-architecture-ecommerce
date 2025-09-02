@@ -1,6 +1,6 @@
 import { ProductRepository } from "../../data/repositories/ProductRepository.js";
 
 export async function listProducts() {
-  const repo = ProductRepository(); // n-tier: on appelle directement le repo concret
+  const repo = ProductRepository();
   return await repo.findAll();
 }

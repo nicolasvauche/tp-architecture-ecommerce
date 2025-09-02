@@ -1,9 +1,11 @@
 export const db = {
   products: [
-    { id: "P-001", name: "Tee-shirt", price: 19.9, sku: "TS-001" },
-    { id: "P-002", name: "Mug", price: 9.9, sku: "MG-001" },
+    { id: 1, name: "T-shirt", price_cents: 1999, stock: 100 },
+    { id: 2, name: "Hoodie", price_cents: 3999, stock: 50 },
+    { id: 3, name: "Sticker Pack", price_cents: 499, stock: 500 },
   ],
-  cart: { items: [] },
+  cart_items: [],
   orders: [],
+  order_items: [],
   _seqOrder: 0,
 };

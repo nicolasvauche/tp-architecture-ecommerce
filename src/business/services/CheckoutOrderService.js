@@ -22,7 +22,7 @@ export async function checkoutOrder() {
     createdAt: nowIso(),
   });
 
-  await cartRepo.clear();
+  /* await cartRepo.clear(); */
 
   return created;
 }
