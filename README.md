@@ -39,6 +39,7 @@ tp-architecture-ecommerce/
 │  │  └─ orders.functional.test.js           # Vérifie GET/POST /orders
 │  │
 │  ├─ helpers/                               # Helpers de test (pas exécutés seuls)
+│  │  ├─ jest.env.setup.js                   # Force l'environnement test
 │  │  └─ resetDb.js                          # Réinitialise le state in-memory entre tests
 │  │
 │  ├─ integration/                           # Tests d’intégration (repositories in-memory)
