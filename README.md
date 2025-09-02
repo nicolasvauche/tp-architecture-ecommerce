@@ -78,12 +78,13 @@ tp-architecture-ecommerce/
 │  │  │  └─ OrderRepository.js
 │  │  │
 │  │  └─ sqlite/                              # Implémentation SQLite
-│  │     ├─ db.js                             # Connexion better-sqlite3 + helpers
-│  │     ├─ schema.sql                        # CREATE TABLE products, cart_items, orders, order_items…
-│  │     ├─ seed.sql                          # Données d’amorçage (quelques produits)
-│  │     ├─ ProductRepositorySqlite.js
 │  │     ├─ CartRepositorySqlite.js
-│  │     └─ OrderRepositorySqlite.js
+│  │     ├─ db.js                             # Connexion better-sqlite3 + helpers
+│  │     ├─ OrderRepositorySqlite.js
+│  │     ├─ ProductRepositorySqlite.js
+│  │     ├─ reset.sql                         # DROP TABLE products, cart_items, orders, order_items…
+│  │     ├─ schema.sql                        # CREATE TABLE products, cart_items, orders, order_items…
+│  │     └─ seed.sql                          # Données d’amorçage (quelques produits)
 │  │
 │  ├─ presentation/                           # TIER 1 — Interface (HTTP uniquement)
 │  │  └─ http/
