@@ -1,6 +1,8 @@
 import express from "express";
 import { logger as defaultLogger } from "../../shared/logger.js";
 import { config } from "../../shared/env.js";
+import { createMemoryContainer } from "../../../config/di.memory.js";
+import { productsRoutes } from "../../../src/products/interface/adapters/http/routes/products.routes.js";
 
 export function createApp({ container, logger = defaultLogger } = {}) {
   const app = express();
@@ -9,16 +11,21 @@ export function createApp({ container, logger = defaultLogger } = {}) {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
+  const di = container ?? createMemoryContainer();
+
   app.get("/__health", (req, res) => {
     res
       .status(200)
       .json({ status: "ok", dataSource: process.env.DATA_SOURCE || "memory" });
   });
 
-  // TODO: monter les routes par domaines quand prêtes
-  // Exemple (quand tu auras créé routes/controllers) :
-  // import { productsRoutes } from '../../../../src/products/interface/adapters/http/routes/products.routes.js';
-  // app.use('/products', productsRoutes({ container, logger: logger.child({ module: 'products' }) }));
+  app.use(
+    "/products",
+    productsRoutes({
+      container: di,
+      logger: logger.child({ module: "products" }),
+    })
+  );
 
   app.use((req, res) => {
     res.status(404).json({ error: "Not Found", path: req.originalUrl });

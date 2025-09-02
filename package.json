@@ -1,11 +1,11 @@
 {
   "name": "cours_architectures",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "infrastructure/drivers/express/server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "start": "node src/index.js",
+    "dev": "nodemon infrastructure/drivers/express/server.js",
+    "start": "node infrastructure/drivers/express/server.js",
     "test": "jest --verbose --coverage"
   },
   "keywords": [],

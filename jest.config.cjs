@@ -8,6 +8,7 @@ module.exports = {
   transform: {
     "^.+\\.jsx?$": "babel-jest",
   },
+  testMatch: ["**/__tests__/**/*.test.js"],
   resetMocks: true,
   restoreMocks: true,
   clearMocks: true,
