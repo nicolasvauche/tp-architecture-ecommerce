@@ -216,7 +216,7 @@
             <mxPoint x="-27" y="7" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="7GvROdGBeF6tqrjPkgx6-59" value="index.js" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="1" vertex="1">
+        <mxCell id="7GvROdGBeF6tqrjPkgx6-59" value="app" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="370" y="510" width="180" height="60" as="geometry" />
         </mxCell>
         <mxCell id="7GvROdGBeF6tqrjPkgx6-60" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="7GvROdGBeF6tqrjPkgx6-59" vertex="1">
@@ -224,7 +224,7 @@
             <mxPoint x="-27" y="7" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="7GvROdGBeF6tqrjPkgx6-61" value="index.js" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="1" vertex="1">
+        <mxCell id="7GvROdGBeF6tqrjPkgx6-61" value="index" style="html=1;dropTarget=0;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="370" y="1630" width="180" height="60" as="geometry" />
         </mxCell>
         <mxCell id="7GvROdGBeF6tqrjPkgx6-62" value="" style="shape=module;jettyWidth=8;jettyHeight=4;" parent="7GvROdGBeF6tqrjPkgx6-61" vertex="1">
