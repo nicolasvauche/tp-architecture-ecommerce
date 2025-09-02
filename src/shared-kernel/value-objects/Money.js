@@ -82,7 +82,10 @@ export class Money {
   }
 
   toJSON() {
-    return { amount: this._amount, currency: this._currency };
+    return {
+      amount: this.toDecimal(),
+      currency: this._currency,
+    };
   }
 
   format({ locale = "fr-FR" } = {}) {

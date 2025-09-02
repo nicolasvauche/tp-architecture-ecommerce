@@ -3,6 +3,7 @@ import { logger as defaultLogger } from "../../shared/logger.js";
 import { config } from "../../shared/env.js";
 import { createMemoryContainer } from "../../../config/di.memory.js";
 import { productsRoutes } from "../../../src/products/interface/adapters/http/routes/products.routes.js";
+import { cartRoutes } from "../../../src/cart/interface/adapters/http/routes/cart.routes.js";
 
 export function createApp({ container, logger = defaultLogger } = {}) {
   const app = express();
@@ -25,6 +26,10 @@ export function createApp({ container, logger = defaultLogger } = {}) {
       container: di,
       logger: logger.child({ module: "products" }),
     })
+  );
+  app.use(
+    "/cart",
+    cartRoutes({ container: di, logger: logger.child({ module: "cart" }) })
   );
 
   app.use((req, res) => {
