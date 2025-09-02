@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon ./src/index.js",
-    "test": "cross-env NODE_ENV=test jest",
+    "test": "cross-env NODE_ENV=test jest --runInBand",
     "db:reset": "node ./scripts/db-reset-sqlite.js",
     "db:reset:test": "cross-env NODE_ENV=test node ./scripts/db-reset-sqlite.js"
   },

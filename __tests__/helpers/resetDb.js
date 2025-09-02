@@ -1,14 +1,14 @@
-import { db } from "../../src/data/memory/state.js";
+export async function resetDb() {
+  const driver = (process.env.DATA_DRIVER || "memory").toLowerCase();
 
-export function resetDb() {
-  db.products.splice(
-    0,
-    db.products.length,
-    { id: "P-001", name: "Tee-shirt", price: 19.9, sku: "TS-001" },
-    { id: "P-002", name: "Mug", price: 9.9, sku: "MG-001" }
-  );
-  db.cart.items = [];
-  db.orders.length = 0;
-  db._seqOrder = 0;
-  return db;
+  if (driver === "sqlite") {
+    const { runSqlFile } = await import("../../src/data/sqlite/db.js");
+    runSqlFile("src/data/sqlite/reset.sql");
+    runSqlFile("src/data/sqlite/schema.sql");
+    runSqlFile("src/data/sqlite/seed.sql");
+    return;
+  }
+
+  const { resetMemoryDb } = await import("../../src/data/memory/state.js");
+  resetMemoryDb();
 }

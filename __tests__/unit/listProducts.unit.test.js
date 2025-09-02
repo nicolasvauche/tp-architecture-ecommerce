@@ -1,19 +1,27 @@
-import { db } from "../../src/data/memory/state.js";
+import { resetDb } from "../helpers/resetDb.js";
 import { listProducts } from "../../src/business/services/ListProductsService.js";
 
 describe("Unit — Products services", () => {
-  beforeEach(() => {
-    db.products.splice(
-      0,
-      db.products.length,
-      { id: "P-001", name: "Tee-shirt", price: 19.9 },
-      { id: "P-002", name: "Mug", price: 9.9 }
-    );
+  beforeEach(async () => {
+    await resetDb();
   });
 
-  test("Unit — ListProductsService retourne les produits du repo in-memory", async () => {
+  test("ListProductsService retourne les produits du repository", async () => {
     const out = await listProducts();
-    expect(out).toHaveLength(2);
-    expect(out[0]).toHaveProperty("id", "P-001");
+
+    expect(Array.isArray(out)).toBe(true);
+    expect(out).toHaveLength(3);
+
+    expect(out[0]).toEqual(
+      expect.objectContaining({
+        id: expect.any(Number),
+        name: expect.any(String),
+        priceCents: expect.any(Number),
+        stock: expect.any(Number),
+      })
+    );
+
+    const ids = out.map((p) => p.id);
+    expect(ids).toEqual([1, 2, 3]);
   });
 });
