@@ -101,7 +101,7 @@ tp-architecture-ecommerce/
 │  │     │  ├─ cart.routes.js
 │  │     │  └─ orders.routes.js
 │  │     │
-│  │     └─ index.js                          # Crée l'app Express et monte les routes
+│  │     └─ app.js                            # Crée l'app Express et monte les routes
 │  │
 │  └─ index.js                                # Point d’entrée (lance le serveur HTTP)
 │

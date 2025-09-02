@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../../src/presentation/http/index.js";
+import app from "../../src/presentation/http/app.js";
 import { resetDb } from "../helpers/resetDb.js";
 
 describe("Functional — /cart", () => {
