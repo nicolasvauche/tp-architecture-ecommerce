@@ -4,6 +4,7 @@ import { config } from "../../shared/env.js";
 import { createMemoryContainer } from "../../../config/di.memory.js";
 import { productsRoutes } from "../../../src/products/interface/adapters/http/routes/products.routes.js";
 import { cartRoutes } from "../../../src/cart/interface/adapters/http/routes/cart.routes.js";
+import { ordersRoutes } from "../../../src/orders/interface/adapters/http/routes/orders.routes.js";
 
 export function createApp({ container, logger = defaultLogger } = {}) {
   const app = express();
@@ -30,6 +31,10 @@ export function createApp({ container, logger = defaultLogger } = {}) {
   app.use(
     "/cart",
     cartRoutes({ container: di, logger: logger.child({ module: "cart" }) })
+  );
+  app.use(
+    "/orders",
+    ordersRoutes({ container: di, logger: logger.child({ module: "orders" }) })
   );
 
   app.use((req, res) => {

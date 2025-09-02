@@ -6,14 +6,19 @@ import { AddToCartUseCase } from "../src/cart/application/usecases/AddToCartUseC
 import { RemoveFromCartUseCase } from "../src/cart/application/usecases/RemoveFromCartUseCase.js";
 import { ClearCartUseCase } from "../src/cart/application/usecases/ClearCartUseCase.js";
 import { GetCartUseCase } from "../src/cart/application/usecases/GetCartUseCase.js";
-
 import { CartPricingService } from "../src/cart/application/services/CartPricingService.js";
+
+import { OrderRepositoryInMemory } from "../infrastructure/memory/orders/OrderRepositoryInMemory.js";
+import { CheckoutOrderUseCase } from "../src/orders/application/usecases/CheckoutOrderUseCase.js";
+import { ListOrdersUseCase } from "../src/orders/application/usecases/ListOrdersUseCase.js";
+import { GetOrderDetailUseCase } from "../src/orders/application/usecases/GetOrderDetailUseCase.js";
 
 export function createMemoryContainer() {
   const registry = new Map();
 
   registry.set("ProductRepository", new ProductRepositoryInMemory());
   registry.set("CartRepository", new CartRepositoryInMemory());
+  registry.set("OrderRepository", new OrderRepositoryInMemory());
 
   registry.set(
     "ListProductsUseCase",
@@ -44,11 +49,29 @@ export function createMemoryContainer() {
       cartRepository: registry.get("CartRepository"),
     })
   );
-
   registry.set(
     "CartPricingService",
     new CartPricingService({
       productRepository: registry.get("ProductRepository"),
+    })
+  );
+  registry.set(
+    "CheckoutOrderUseCase",
+    new CheckoutOrderUseCase({
+      cartRepository: registry.get("CartRepository"),
+      productRepository: registry.get("ProductRepository"),
+      orderRepository: registry.get("OrderRepository"),
+      pricer: registry.get("CartPricingService"),
+    })
+  );
+  registry.set(
+    "ListOrdersUseCase",
+    new ListOrdersUseCase({ orderRepository: registry.get("OrderRepository") })
+  );
+  registry.set(
+    "GetOrderDetailUseCase",
+    new GetOrderDetailUseCase({
+      orderRepository: registry.get("OrderRepository"),
     })
   );
 
