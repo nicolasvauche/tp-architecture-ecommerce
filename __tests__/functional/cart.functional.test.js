@@ -18,7 +18,7 @@ describe("Functional — /cart", () => {
     const res = await request(app)
       .post("/cart")
       .send({ productId: "P-XXX", quantity: 1 });
-    expect([400, 500]).toContain(res.status); // dépend de ton error handler
+    expect([400, 500]).toContain(res.status);
   });
 
   it("DELETE /cart/:productId supprime l’item", async () => {
