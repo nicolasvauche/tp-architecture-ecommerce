@@ -51,7 +51,7 @@ tp-architecture-ecommerce/
 │  │  └─ orders.services.unit.test.js        # Tests unitaires : services Commandes
 │  │
 ├─ src/
-│  ├─ business/                              # TIER 1 — Logique métier (pas d'I/O)
+│  ├─ business/                              # TIER 2 — Logique métier (pas d'I/O)
 │  │  └─ services/                           # Services ⇢ repositories (Data)
 │  │     ├─ ListProductsService.js
 │  │     ├─ AddToCartService.js
@@ -61,7 +61,7 @@ tp-architecture-ecommerce/
 │  │     ├─ ListOrdersService.js
 │  │     └─ GetOrderDetailService.js
 │  │
-│  ├─ data/                                  # TIER 2 — Accès données (impl concrètes)
+│  ├─ data/                                  # TIER 3 — Accès données (impl concrètes)
 │  │  ├─ memory/                             # Implémentation in-memory simple
 │  │  │  ├─ state.js                         # Faux “DB” : produits, panier, commandes
 │  │  │  ├─ ProductRepositoryInMemory.js
@@ -72,7 +72,7 @@ tp-architecture-ecommerce/
 │  │     ├─ CartRepository.js
 │  │     └─ OrderRepository.js
 │  │
-│  ├─ presentation/                          # TIER 3 — Interface (HTTP uniquement)
+│  ├─ presentation/                          # TIER 1 — Interface (HTTP uniquement)
 │  │  └─ http/
 │  │     ├─ controllers/                     # Controllers ⇢ services (Business)
 │  │     │  ├─ ProductsController.js
