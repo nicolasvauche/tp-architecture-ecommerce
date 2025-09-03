@@ -40,8 +40,7 @@ tp-architecture-ecommerce/                  # Racine du projet
 │  └─ unit/                                 # Tests unitaires (entities + usecases purs, sans I/O)
 │
 ├─ config/                                  # Configuration applicative (DI, wiring)
-│  ├─ di.memory.js                          # Binds contrats → implémentations InMemory
-│  └─ di.sqlite.js                          # Binds contrats → implémentations SQLite
+│  └─ di.memory.js                          # Binds contrats → implémentations InMemory
 │
 ├─ infrastructure/                          # Implémentations techniques concrètes (outer layer)
 │  ├─ drivers/                              # Frameworks externes (Express, etc.)
@@ -59,24 +58,9 @@ tp-architecture-ecommerce/                  # Racine du projet
 │  │  └─ products/                          # Impl spécifique au domaine Products
 │  │     └─ ProductRepositoryInMemory.js    # Repo mémoire pour Products
 │  │
-│  ├─ shared/                               # Outils techniques transverses
-│  │  ├─ env.js                             # Helper pour charger les variables d’environnement
-│  │  └─ logger.js                          # Logger technique (console par défaut)
-│  │
-│  └─ sqlite/                               # Implémentations SQLite des repositories
-│     ├─ cart/                              # Impl spécifique au domaine Cart
-│     │  └─ CartRepositorySqlite.js         # Repo SQLite pour Cart
-│     ├─ orders/                            # Impl spécifique au domaine Orders
-│     │  └─ OrderRepositorySqlite.js        # Repo SQLite pour Orders
-│     ├─ products/                          # Impl spécifique au domaine Products
-│     │  └─ ProductRepositorySqlite.js      # Repo SQLite pour Products
-│     ├─ db.js                              # Connexion SQLite (better-sqlite3 + helpers)
-│     ├─ reset.sql                          # Script pour drop tables (reset DB)
-│     ├─ schema.sql                         # Script pour créer les tables
-│     └─ seed.sql                           # Script pour insérer des données d’amorçage
-│
-├─ scripts/                                 # Scripts utilitaires CLI
-│  └─ db-reset-sqlite.js                    # Reset DB via execution schema.sql + seed.sql
+│  └─ shared/                               # Outils techniques transverses
+│     ├─ env.js                             # Helper pour charger les variables d’environnement
+│     └─ logger.js                          # Logger technique (console par défaut)
 │
 ├─ src/                                     # Code applicatif (Clean + DDD)
 │  ├─ cart/                                 # Bounded context Cart
@@ -163,9 +147,6 @@ tp-architecture-ecommerce/                  # Racine du projet
 │        ├─ Percentage.js                   # Pourcentage (0–100 ou 0–1)
 │        ├─ PositiveInt.js                  # Entier positif validé
 │        └─ Uuid.js                         # Identifiant UUID
-│
-├─ var/                                     # Répertoire runtime (ex : DB SQLite)
-│  └─ .gitkeep                              # Placeholder pour Git
 │
 ├─ .env.test.example                        # Variables d’env pour tests
 ├─ .env.example                             # Variables d’env pour dev
