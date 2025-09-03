@@ -16,9 +16,7 @@ export function createApp({ container, logger = defaultLogger } = {}) {
   const di = container ?? createMemoryContainer();
 
   app.get("/__health", (req, res) => {
-    res
-      .status(200)
-      .json({ status: "ok", dataSource: process.env.DATA_SOURCE || "memory" });
+    res.status(200).json({ status: "ok", dataSource: config.dataSource });
   });
 
   app.use(

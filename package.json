@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon infrastructure/drivers/express/server.js",
     "start": "node infrastructure/drivers/express/server.js",
-    "test": "jest --verbose --coverage"
+    "test": "jest --runInBand"
   },
   "keywords": [],
   "author": "",

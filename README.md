@@ -48,7 +48,8 @@ tp-architecture-ecommerce/                  # Racine du projet
 │  │  └─ express/                           # Adaptation technique via Express
 │  │     ├─ middlewares/                    # Middlewares Express
 │  │     │  └─ errorMiddleware.js           # Traduit erreurs métier en statuts HTTP
-│  │     └─ app.js                          # Instancie Express et monte les routes
+│  │     ├─ app.js                          # Instancie Express et monte les routes
+│  │     └─ server.js                       # Lance le serveur et injecte l'application
 │  │
 │  ├─ memory/                               # Implémentations InMemory des repositories
 │  │  ├─ cart/                              # Impl spécifique au domaine Cart
@@ -80,6 +81,8 @@ tp-architecture-ecommerce/                  # Racine du projet
 ├─ src/                                     # Code applicatif (Clean + DDD)
 │  ├─ cart/                                 # Bounded context Cart
 │  │  ├─ application/                       # Couche Application (cas d’usage Cart)
+│  │  │  ├─ services/                       # Services Cart
+│  │  │  │  └─ CartPricingService.js        # Calcule les prix du panier (line total, cart total)
 │  │  │  └─ usecases/                       # Use Cases Cart
 │  │  │     ├─ AddToCartUseCase.js          # Ajouter un produit au panier
 │  │  │     ├─ ClearCartUseCase.js          # Vider le panier
@@ -92,8 +95,10 @@ tp-architecture-ecommerce/                  # Racine du projet
 │  │  ├─ interface/                         # Interface Adapters (Cart)
 │  │  │  └─ adapters/                       # Adaptateurs Cart
 │  │  │     ├─ http/                        # Contrôleurs HTTP (Cart)
-│  │  │     │  └─ controllers/
-│  │  │     │     └─ CartController.js      # Mappe HTTP → Use Cases Cart
+│  │  │     │  ├─ controllers/
+│  │  │     │  │  └─ CartController.js      # Mappe HTTP → Use Cases Cart
+│  │  │     │  └─ routes/
+│  │  │     │     └─ cart.routes.js         # Routes /cart
 │  │  │     └─ repositories/                # Contrats de repo Cart
 │  │  │        └─ CartRepository.js         # Contrat repo pour Cart
 │  │  └─ presentation/                      # Couche Presentation (Cart)
@@ -116,8 +121,10 @@ tp-architecture-ecommerce/                  # Racine du projet
 │  │  ├─ interface/
 │  │  │  └─ adapters/
 │  │  │     ├─ http/
-│  │  │     │  └─ controllers/
-│  │  │     │     └─ OrdersController.js    # Mappe HTTP → Use Cases Orders
+│  │  │     │  ├─ controllers/
+│  │  │     │  │  └─ OrdersController.js    # Mappe HTTP → Use Cases Orders
+│  │  │     │  └─ routes/
+│  │  │     │     └─ orders.routes.js       # Routes /orders
 │  │  │     └─ repositories/
 │  │  │        └─ OrderRepository.js        # Contrat repo pour Orders
 │  │  └─ presentation/
@@ -137,8 +144,10 @@ tp-architecture-ecommerce/                  # Racine du projet
 │  │  ├─ interface/
 │  │  │  └─ adapters/
 │  │  │     ├─ http/
-│  │  │     │  └─ controllers/
-│  │  │     │     └─ ProductsController.js  # Mappe HTTP → Use Cases Products
+│  │  │     │  ├─ controllers/
+│  │  │     │  │  └─ ProductsController.js  # Mappe HTTP → Use Cases Products
+│  │  │     │  └─ routes/
+│  │  │     │     └─ products.routes.js     # Routes /products
 │  │  │     └─ repositories/
 │  │  │        └─ ProductRepository.js      # Contrat repo pour Products
 │  │  └─ presentation/
