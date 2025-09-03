@@ -62,7 +62,10 @@ describe("E2E — Parcours complet catalogue → panier → checkout → consult
     const h = await request(base).get("/__health");
     expect(h.status).toBe(200);
     expect(h.body).toEqual(
-      expect.objectContaining({ status: "ok", dataSource: "memory" })
+      expect.objectContaining({
+        status: "ok",
+        dataSource: expect.stringMatching(/^(memory|sqlite)$/),
+      })
     );
 
     const notf = await request(base).get("/nope");

@@ -2,9 +2,11 @@ import express from "express";
 import { logger as defaultLogger } from "../../shared/logger.js";
 import { config } from "../../shared/env.js";
 import { createMemoryContainer } from "../../../config/di.memory.js";
+import { createSqliteContainer } from "../../../config/di.sqlite.js";
 import { productsRoutes } from "../../../src/products/interface/adapters/http/routes/products.routes.js";
 import { cartRoutes } from "../../../src/cart/interface/adapters/http/routes/cart.routes.js";
 import { ordersRoutes } from "../../../src/orders/interface/adapters/http/routes/orders.routes.js";
+import { errorMiddleware } from "./middlewares/errorMiddleware.js";
 
 export function createApp({ container, logger = defaultLogger } = {}) {
   const app = express();
@@ -13,10 +15,20 @@ export function createApp({ container, logger = defaultLogger } = {}) {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  const di = container ?? createMemoryContainer();
+  const defaultContainer =
+    config.dataSource === "sqlite"
+      ? createSqliteContainer()
+      : createMemoryContainer();
+
+  const di = container ?? defaultContainer;
 
   app.get("/__health", (req, res) => {
-    res.status(200).json({ status: "ok", dataSource: config.dataSource });
+    res.status(200).json({
+      status: "ok",
+      dataSource: config.dataSource,
+      sqliteDb: config.sqliteDb,
+      logLevel: config.logLevel,
+    });
   });
 
   app.use(
@@ -35,18 +47,16 @@ export function createApp({ container, logger = defaultLogger } = {}) {
     ordersRoutes({ container: di, logger: logger.child({ module: "orders" }) })
   );
 
+  // 404
   app.use((req, res) => {
     res.status(404).json({ error: "Not Found", path: req.originalUrl });
   });
 
-  (async () => {
-    const { errorMiddleware } = await import(
-      "./middlewares/errorMiddleware.js"
-    );
-    app.use(errorMiddleware(logger, config));
-  })();
+  app.use(errorMiddleware(logger, config));
 
-  logger.info(`Express app initialized (env: ${config.logLevel})`);
+  logger.info(
+    `Express app initialized (dataSource: ${config.dataSource}, env: ${config.logLevel})`
+  );
 
   return app;
 }

@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon infrastructure/drivers/express/server.js",
     "start": "node infrastructure/drivers/express/server.js",
-    "test": "jest --runInBand"
+    "test": "cross-env NODE_ENV=test jest --runInBand",
+    "db:reset": "node scripts/db-reset-sqlite.js",
+    "db:reset:test": "cross-env NODE_ENV=test node scripts/db-reset-sqlite.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +24,7 @@
     "@babel/core": "^7.28.3",
     "@babel/preset-env": "^7.28.3",
     "babel-jest": "^30.1.2",
+    "cross-env": "^10.0.0",
     "jest": "^30.1.2",
     "nodemon": "^3.1.10",
     "supertest": "^7.1.4"
