@@ -3,6 +3,7 @@ export class OrderDto {
     return {
       id: o.id.toString(),
       number: o.number.toString(),
+      createdAt: o.createdAt.toISOString(),
       lines: o.lines.map((l) => ({
         productId: l.productId,
         sku: l.sku,

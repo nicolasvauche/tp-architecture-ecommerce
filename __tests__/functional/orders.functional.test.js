@@ -18,6 +18,7 @@ describe("Functional — /orders", () => {
       expect.objectContaining({
         id: expect.any(String),
         number: expect.stringMatching(/^ORD-/),
+        createdAt: expect.stringMatching(/^\d{4}-\d{2}-\d{2}T/),
         lines: expect.any(Array),
         total: expect.objectContaining({
           amount: expect.any(Number),

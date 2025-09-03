@@ -35,16 +35,13 @@ export class OrderRepositorySqlite extends OrderRepository {
   }
 
   async save(order) {
-    const createdAt =
-      order.createdAt instanceof Date ? order.createdAt : new Date();
-
     const lines = Array.isArray(order.lines) ? order.lines : [];
 
     this.db.transaction(() => {
       this.qInsert.run(
         order.id.value,
         order.number.value,
-        createdAt.toISOString(),
+        order.createdAt.toISOString(),
         order.total.currency,
         order.total.amount
       );
@@ -70,6 +67,7 @@ export class OrderRepositorySqlite extends OrderRepository {
         new Order({
           id: new OrderId(r.id),
           number: new OrderNumber(r.number),
+          createdAt: r.created_at,
           lines: [],
           total: new Money(r.total_cents, r.currency),
         })
@@ -90,6 +88,7 @@ export class OrderRepositorySqlite extends OrderRepository {
     return new Order({
       id: new OrderId(r.id),
       number: new OrderNumber(r.number),
+      createdAt: r.created_at,
       lines,
       total: new Money(r.total_cents, r.currency),
     });

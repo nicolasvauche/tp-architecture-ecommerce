@@ -14,5 +14,7 @@ describe("Unit — Order entity", () => {
     expect(order.lines).toHaveLength(2);
     expect(order.total.amount).toBe(2999);
     expect(order.number?.value ?? order.number).toMatch(/^ORD-/);
+    expect(order.createdAt).toBeInstanceOf(Date);
+    expect(order.createdAt.toISOString()).toMatch(/^\d{4}-\d{2}-\d{2}T/);
   });
 });
