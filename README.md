@@ -31,6 +31,12 @@ npm test
 
 ---
 
+## Diagrammes
+
+![Diagramme de Composants](./__docs__/01%20-%20Diagramme%20de%20Composants%20-%20v0%20-%20Monolithe.png)
+
+---
+
 ## Arborescence
 
 ```bash
