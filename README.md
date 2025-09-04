@@ -24,6 +24,12 @@ Le serveur démarre par défaut sur le port 3000.
 
 ---
 
+## Diagrammes
+
+![Diagramme de Composants](./__docs__/01%20-%20Diagramme%20de%20Composants%20-%20v1%20-%20N-Tier%20sans%20BDD.png)
+
+---
+
 ## Arborescence
 
 ```bash
