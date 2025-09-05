@@ -55,7 +55,7 @@ export class OrdersService {
 
   async fetchCart() {
     try {
-      const { data } = await this.http.get("/cart");
+      const { data } = await this.http.get("/");
       return data;
     } catch (e) {
       const err = new Error("Unable to reach cart service");
