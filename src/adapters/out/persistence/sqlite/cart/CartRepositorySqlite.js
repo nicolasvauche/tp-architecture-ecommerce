@@ -1,4 +1,4 @@
-import { CartRepository } from "../../../../../../ports/out/cart/CartRepository.js";
+import { CartRepository } from "../../../../../ports/out/cart/CartRepository.js";
 
 export class CartRepositorySqlite extends CartRepository {
   constructor({ db }) {

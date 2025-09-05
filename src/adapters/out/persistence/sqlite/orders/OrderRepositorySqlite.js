@@ -1,4 +1,4 @@
-import { OrderRepository } from "../../../../../../ports/out/orders/OrderRepository.js";
+import { OrderRepository } from "../../../../../ports/out/orders/OrderRepository.js";
 
 export class OrderRepositorySqlite extends OrderRepository {
   constructor({ db }) {
