@@ -18,7 +18,6 @@ const PRODUCTS_URL = process.env.PRODUCTS_URL ?? "http://localhost:4001";
 const CART_URL = process.env.CART_URL ?? "http://localhost:4002";
 const ORDERS_URL = process.env.ORDERS_URL ?? "http://localhost:4003";
 
-app.use(express.json());
 app.use(requestId());
 app.use(
   morgan(":method :url :status - :response-time ms - reqid=:reqid", {
@@ -70,6 +69,8 @@ app.get("/", (_req, res) => {
 });
 
 app.use(notFound());
+
+app.use(express.json());
 
 app.listen(PORT, () => {
   console.log(`Gateway listening on http://localhost:${PORT}`);
