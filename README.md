@@ -1,137 +1,109 @@
-# Monolithe E-commerce (Node.js + Express)
+# QCM — Architectures logicielles
 
-Un **projet fil rouge** pour comprendre les bases des architectures applicatives :
+## Question 1 — Monolithe
 
-- On commence par un **monolithe simple** (tout dans une seule app).
-- Puis on le fera évoluer vers des architectures **n-tiers**, **DDD** et **microservices**.
+Dans une architecture monolithique, quel est le **principal risque** lors de l’évolution du projet ?
 
----
-
-## Lancer le projet
-
-### 1. Installer les dépendances
-
-```bash
-npm install
-```
-
-### 2. Lancer le serveur
-
-```bash
-npm run dev
-```
-
-Le serveur démarre sur http://localhost:3000.
-
-### 3. Exécuter les tests
-
-```bash
-npm test
-```
+- [ ] A. Une faible performance due aux appels réseau fréquents
+- [ ] B. Une dette technique accrue à cause du couplage fort
+- [ ] C. La difficulté d’assurer la cohérence transactionnelle
+- [ ] D. L’absence de compatibilité avec une base de données relationnelle
 
 ---
 
-## Diagrammes
+## Question 2 — Architecture n-tiers
 
-![Diagramme de Composants](./__docs__/01%20-%20Diagramme%20de%20Composants%20-%20v0%20-%20Monolithe.png)
+Dans une architecture 3-tiers classique (présentation / métier / données), à quoi sert la **couche métier** ?
 
----
-
-## Arborescence
-
-```bash
-tp-architecture-ecommerce/
-├─ .github/                    # Configurations spécifiques à GitHub
-│  └─ workflows/
-│     └─ ci.yaml               # Github Actions CI
-│
-├─ __tests__/                  # Dossier des tests automatisés
-│  ├─ cart_orders.test.js      # Tests fonctionnels et E2E : Cart + Orders
-│  ├─ products.fetch.int.test  # Tests d'intégration : Products sans supertest
-│  └─ products.test.js         # Tests fonctionnels : Products
-│
-├─ src/                        # Code source de l’application monolithique
-│  ├─ index.js                 # Point d’entrée
-│  ├─ products.js              # Routes produits
-│  ├─ cart.js                  # Routes panier
-│  ├─ orders.js                # Routes commandes
-│  └─ state.js                 # State global
-│
-├─ .gitignore                  # Fichiers/dossiers ignorés par Git (node_modules, coverage, etc.)
-├─ README.md                   # Documentation du projet (instructions, endpoints, etc.)
-├─ package.lock.json           # Verrouillage des dépendances (auto-généré par npm)
-└─ package.json                # Dépendances, scripts npm (dev, test, coverage, etc.)
-```
+- [ ] A. À stocker les données de manière persistante
+- [ ] B. À fournir une interface graphique réactive
+- [ ] C. À encapsuler la logique métier et les règles de gestion
+- [ ] D. À gérer la scalabilité horizontale
 
 ---
 
-## Endpoints disponibles
+## Question 3 — Dépendances en n-tiers
 
-### Produits
+Dans une architecture n-tiers, les dépendances doivent généralement aller :
 
-```bash
-GET /products # liste des produits disponibles
-```
-
-### Panier
-
-```bash
-GET /cart # voir le contenu du panier
-POST /cart `{ "productId": int, "quantity": int }` # ajouter un produit
-DELETE /cart # vider le panier
-```
-
-### Commandes
-
-```bash
-GET /orders # voir toutes les commandes passées
-POST /orders # créer une nouvelle commande à partir du panier
-```
+- [ ] A. De la couche présentation vers la couche métier, puis vers la couche données
+- [ ] B. Dans les deux sens, afin de garder la flexibilité
+- [ ] C. De la base de données vers les services, puis vers l’UI
+- [ ] D. Directement de l’UI vers la base de données pour éviter les surcouches inutiles
 
 ---
 
-## Tests automatisés
+## Question 4 — Architecture Clean
 
-### Intégration (sans supertest)
+Selon l’architecture Clean, où doivent se trouver les **Entities** ?
 
-- GET `/products` retourne le seed trié par id
-
-### Fonctionnels (avec supertest)
-
-- GET `/products` retourne le seed trié par id
-- POST `/cart` refuse un produit non proposé
-- DELETE `/cart` vide le panier
-
-### End To End (E2E)
-
-- POST `/cart` ajoute un produit existant puis GET `/cart` reflète l'ajout (fusion des quantités)
-- POST `/orders` crée une commande à partir du panier, GET `/orders` reflète l'ajout, puis GET `/cart` vérifie que le panier est vidé
+- [ ] A. Dans l’infrastructure, aux côtés des repositories
+- [ ] B. Dans la couche la plus externe, proche des frameworks
+- [ ] C. Au cœur du domaine, indépendantes de toute technologie
+- [ ] D. Dans les cas d’usage, pour être testées facilement
 
 ---
 
-## Étapes pédagogiques
+## Question 5 — Cas d’usage (Clean)
 
-1. V0 Monolithe simple (cette branche)
+Quel est le rôle principal d’un **Use Case** dans l’architecture Clean ?
 
-   - Branche `main`
-     - Tout en mémoire, une seule app
+- [ ] A. Orchestrer une logique métier à partir d’entrées externes
+- [ ] B. Gérer la persistance des données dans la base
+- [ ] C. Fournir des composants graphiques pour l’IHM
+- [ ] D. Contrôler les threads utilisés par l’application
 
-2. V1 Architecture en couches (n-tiers)
+---
 
-   - Branche `n-tier`
-     - Séparation Routes / Services / Repositories
-     - Persistance SQLite/Postgres avec Prisma ou Sequelize
+## Question 6 — Architecture hexagonale
 
-3. V2 Domain-Driven Design (clean)
+Dans une architecture hexagonale, un **port OUT** correspond à :
 
-   - Branche `clean`
-     - Clean architecture (infrastructure & adapters)
+- [ ] A. Une API publique exposée aux clients
+- [ ] B. Une dépendance dont le core a besoin (ex. repository, mailer)
+- [ ] C. Un adaptateur de présentation (UI, REST, CLI)
+- [ ] D. Une entité métier utilisée par un cas d’usage
 
-4. V3 Domain-Driven Design (hexagonale)
+---
 
-   - Branche `hexagonal`
-     - Architecture hexagonale (port & adapters)
+## Question 7 — Adaptateurs (Hexagonale)
 
-5. V3 Microservices & CQRS
-   - Branche `microservices`
-     - Découper en services (catalogue, panier, commande)
+Dans l’architecture hexagonale, quel est le rôle des **adapters** ?
+
+- [ ] A. Traduire entre le core et le monde extérieur (infra, UI, DB…)
+- [ ] B. Simplifier la logique métier en supprimant les règles de gestion
+- [ ] C. Optimiser les performances réseau
+- [ ] D. Remplacer les entités métiers par des DTO
+
+---
+
+## Question 8 — Microservices
+
+Quelle est la **principale différence** entre une architecture microservices et une architecture n-tiers ?
+
+- [ ] A. Les microservices imposent toujours l’usage de bases NoSQL
+- [ ] B. Les microservices séparent le code par couches, pas par domaine
+- [ ] C. Les microservices isolent chaque contexte métier avec sa persistance
+- [ ] D. Les microservices ne permettent pas de tests unitaires
+
+---
+
+## Question 9 — Contrôles et cohérence
+
+Dans une architecture microservices, comment assurer la **cohérence des données** entre services ?
+
+- [ ] A. En partageant une seule base de données centrale
+- [ ] B. En utilisant des transactions globales synchrones
+- [ ] C. En s’appuyant sur des mécanismes de communication (événements, messages)
+- [ ] D. En supprimant les contraintes de cohérence
+
+---
+
+## Question 10 — Dépendances et inversion de contrôle
+
+Quel principe permet de garantir que le code métier reste indépendant de la technique (DB, frameworks) ?
+
+- [ ] A. Le principe de Single Responsibility
+- [ ] B. L’inversion de dépendances (Dependency Inversion)
+- [ ] C. Le polymorphisme d’héritage
+- [ ] D. Le principe de Liskov

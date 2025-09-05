@@ -1,11 +1,7 @@
-node_modules/
 .DS_Store
-.env
-.env.test
-coverage/
-.idea/
 .vscode/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-var/
+.idea/
+Correction.md
+Explications.md
+Quizz Architectures - Correction.pdf
+Quizz Architectures - Explications.pdf
