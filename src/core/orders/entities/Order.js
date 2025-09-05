@@ -14,25 +14,30 @@ export class Order {
     this.number =
       number instanceof OrderNumber ? number : new OrderNumber(number);
     this.createdAt = createdAt;
-    this.lines = lines.map((l) => ({
-      productId: String(l.productId),
-      quantity: Number(l.quantity),
-      unitPrice:
+
+    this.lines = lines.map((l) => {
+      const qty = Number(l.quantity);
+      const unit =
         l.unitPrice instanceof Money
           ? l.unitPrice
-          : new Money(l.unitPrice?.amount ?? 0, l.unitPrice?.currency ?? "EUR"),
-      lineTotal:
-        l.lineTotal instanceof Money
-          ? l.lineTotal
-          : new Money(
-              l.lineTotal?.amount ?? 0,
-              l.lineTotal?.currency ?? l.unitPrice?.currency ?? "EUR"
-            ),
-    }));
+          : new Money(l.unitPrice?.amount ?? 0, l.unitPrice?.currency ?? "EUR");
+
+      const lt =
+        l.lineTotal instanceof Money ? l.lineTotal : unit.multiply(qty);
+
+      return {
+        productId: String(l.productId),
+        quantity: qty,
+        unitPrice: unit,
+        lineTotal: lt,
+      };
+    });
+
     this.total =
       total instanceof Money
         ? total
         : new Money(total?.amount ?? 0, total?.currency ?? "EUR");
+
     this.recalc();
   }
 

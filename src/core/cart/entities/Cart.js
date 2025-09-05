@@ -1,28 +1,32 @@
 import { Money } from "../../shared-kernel/value-objects/Money.js";
+import { Quantity } from "../value-objects/Quantity.js";
+
+const toQty = (q) => (q instanceof Quantity ? q.value : Number(q));
 
 export class Cart {
   /** @param {{lines?: Array, total?: Money}} data */
   constructor({ lines = [], total = Money.zero("EUR") } = {}) {
-    this.lines = lines.map((l) => ({
-      productId: String(l.productId),
-      quantity: Number(l.quantity),
-      unitPrice:
+    this.lines = lines.map((l) => {
+      const qty = toQty(l.quantity);
+      const unit =
         l.unitPrice instanceof Money
           ? l.unitPrice
-          : new Money(l.unitPrice?.amount ?? 0, l.unitPrice?.currency ?? "EUR"),
-      lineTotal:
-        l.lineTotal instanceof Money
-          ? l.lineTotal
-          : new Money(
-              l.lineTotal?.amount ??
-                (l.unitPrice?.amount ?? 0) * Number(l.quantity),
-              l.unitPrice?.currency ?? l.lineTotal?.currency ?? "EUR"
-            ),
-    }));
+          : new Money(l.unitPrice?.amount ?? 0, l.unitPrice?.currency ?? "EUR");
+
+      return {
+        productId: String(l.productId),
+        quantity: qty,
+        unitPrice: unit,
+        lineTotal:
+          l.lineTotal instanceof Money ? l.lineTotal : unit.multiply(qty),
+      };
+    });
+
     this.total =
       total instanceof Money
         ? total
         : new Money(total?.amount ?? 0, total?.currency ?? "EUR");
+
     this.recalc();
   }
 
@@ -30,10 +34,16 @@ export class Cart {
     return new Cart();
   }
 
+  add({ productId, unitPrice, quantity }) {
+    this.upsertLine({ productId, unitPrice, quantity });
+  }
+
   upsertLine({ productId, unitPrice, quantity }) {
+    const qtyInc = toQty(quantity);
     const idx = this.lines.findIndex((l) => l.productId === String(productId));
+
     if (idx >= 0) {
-      const q = this.lines[idx].quantity + Number(quantity);
+      const q = this.lines[idx].quantity + qtyInc;
       this.lines[idx] = {
         productId: String(productId),
         quantity: q,
@@ -43,11 +53,12 @@ export class Cart {
     } else {
       this.lines.push({
         productId: String(productId),
-        quantity: Number(quantity),
+        quantity: qtyInc,
         unitPrice,
-        lineTotal: unitPrice.multiply(quantity),
+        lineTotal: unitPrice.multiply(qtyInc),
       });
     }
+
     this.recalc();
   }
 
